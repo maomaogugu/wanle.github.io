@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            overflow: hidden; /* 隐藏超出部分 */
+        }
+
+        .love-text {
+            font-size: 40px;
+            color: #333;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative; /* 确保文字在顶层 */
+            z-index: 1;
+        }
+
+        /* 新增浮动文字背景样式 */
+        .floating-bg {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* 防止遮挡点击事件 */
+        }
+
+        .floating-text {
+            position: absolute;
+            color: rgba(200, 200, 200, 0.8); /* 半透明浅灰色 */
+            font-size: 50px;
+            animation: float 20s infinite linear;
+            filter: blur(1px); /* 模糊效果 */
+            white-space: nowrap;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(150vw, 150vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-bg" id="floatingBg"></div>
+    <div class="love-text">老狗我们爱你</div>
+
+    <script>
+        // 自动生成浮动文字
+        const bg = document.getElementById('floatingBg');
+        const texts = ['老狗我爱你', '我们爱你', 'Love you'];
+        const count =50; // 浮动文字数量
+
+        for (let i = 0; i < count; i++) {
+            const text = document.createElement('div');
+            text.className = 'floating-text';
+            text.textContent = texts[Math.floor(Math.random() * texts.length)];
+            
+            // 随机位置和动画参数
+            text.style.left = Math.random() * 100 + 'vw';
+            text.style.top = Math.random() * 100 + 'vh';
+            text.style.animationDelay = Math.random() * -20 + 's';
+            text.style.animationDuration = 15 + Math.random() * 10 + 's';
+            text.style.transform = `rotate(${Math.random() * 360}deg)`;
+            
+            bg.appendChild(text);
+        }
+    </script>
+</body>
+</html>
